@@ -1,14 +1,15 @@
 const express = require("express");
 
 const { joiSchema } = require("../../models/user");
+//переименовываем auth в ctrl
+const { auth: ctrl } = require("../../controllers");
+
 const {
   controllerWrapper,
   validation,
   authenticate,
+  upload,
 } = require("../../middlewares");
-
-//переименовываем auth в ctrl
-const { auth: ctrl } = require("../../controllers");
 
 const router = express.Router();
 
@@ -29,6 +30,13 @@ router.post(
 
 router.post("/login", validation(joiSchema), controllerWrapper(ctrl.login));
 // router.post("/signin")
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  controllerWrapper(ctrl.avatars));
+ 
 
 router.get("/logout", authenticate, controllerWrapper(ctrl.logout));
 // router.get("/signout")

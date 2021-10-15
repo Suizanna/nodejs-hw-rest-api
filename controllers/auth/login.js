@@ -1,5 +1,5 @@
 const { BadRequest, NotFound } = require("http-errors");
-const bcrypt = require("bcryptjs"); //хеширование
+// const bcrypt = require("bcryptjs"); //хеширование
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models");
