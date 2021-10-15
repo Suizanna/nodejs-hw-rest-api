@@ -22,7 +22,7 @@ const authenticate = async (req, res, next) => {
     });
     return;
   }
-  //разделяем н два слова - bearer, token
+  //разделяем на два слова - bearer, token
   const [bearer, token] = authorization.split(" ");
   if (bearer !== "Bearer") {
     res.status(401).json({

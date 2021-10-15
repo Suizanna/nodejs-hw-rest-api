@@ -2,6 +2,8 @@ const { Conflict } = require("http-errors");
 // const bcrypt = require("bcryptjs");
 
 const { User } = require("../../models");
+// Создавай ссылку на аватарку пользователя с помощью gravatar
+const gravatar = require("gravatar");
 
 //функция обработчик асинхронная
 const register = async (req, res) => {
@@ -16,10 +18,20 @@ const register = async (req, res) => {
     // });
     // return;
   }
+  
+  const avatar = gravatar.url(
+    email,
+    {
+      s: "250",
+      d: "robohash",
+    },
+    true
+  );
   //2вар
   const newUser = new User({ email }); //создаем объект
   // newUser = {email}
   newUser.setPassword(password); //password и захеширован виде
+  newUser.setAvatar(avatar);
   // newUser = {email, password}
   await newUser.save(); //сохраняем в базу
   //1вар

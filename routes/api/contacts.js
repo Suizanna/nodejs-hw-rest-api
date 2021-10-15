@@ -1,11 +1,17 @@
 const express = require("express");
-const router = express.Router();
+
 const { joiSchema, updateFavoriteJoiSchema } = require("../../models/contact");
 // const { joiSchema } = require("../../models");
 const { controllerWrapper, validation } = require("../../middlewares");
 const { contacts: ctrl } = require("../../controllers");
 // console.log(ctrl);
-
+//====
+// const {upload, controllerWrapper} = require("../../middlewares");
+//=====
+const router = express.Router();
+//=====
+// router.post("/", upload.single("photo"), controllerWrapper(ctrl.add));
+//======
 // GET /api/contacts
 router.get("/", controllerWrapper(ctrl.getAll));
 
