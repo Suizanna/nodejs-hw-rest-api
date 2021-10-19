@@ -17,7 +17,7 @@ const uploadConfig = multer.diskStorage({
     },
     // ограничения
     limits: {
-        fileSize: 2058
+        fileSize: 50000,
     }
 });
 // мидлвара загрузчик
