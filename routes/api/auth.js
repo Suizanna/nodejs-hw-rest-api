@@ -31,6 +31,7 @@ router.post(
 router.post("/login", validation(joiSchema), controllerWrapper(ctrl.login));
 // router.post("/signin")
 
+// PATCH /api/auth/avatars
 router.patch(
   "/avatars",
   authenticate,

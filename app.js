@@ -2,37 +2,6 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 //=====
-// const multer = require("multer");
-// const path = require("path");
-
-// // // join нормализирует пути, заменяет на допустиые символы
-// // // tempDir папка. временно хранятся файлы
-// const tempDir = path.join(__dirname, "temp");
-
-// папка загрузки фалов после временной
-// const uploadDir = path.join(__dirname, "public");
-
-// настройка для мидлвары
-// cb-передаем обработку дальше. аналог next
-// const uploadConfig = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, tempDir); // 1.ошибка или null и 2.временная папка
-//   },
-//   // под каким именем сохранить файл. обычно под оригинальным
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-//   // ограничения
-//   limits: {
-//     fileSize: 2048,
-//   },
-// });
-// // мидлвара
-// const uploadMiddleware = multer({
-//   storage: uploadConfig,
-// });
-
-
 // app.post("/api/products", uploadMiddleware.single("image"), async(req, res)=> {
 //   //tempName- полный путь + имя файла в папке temp
 //   const {originalname, path: tempName} = req.file;
