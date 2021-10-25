@@ -28,6 +28,12 @@ router.post(
 );
 // router.post("/signup")
 
+//  POST /users/verify/
+router.post("/verify", controllerWrapper(ctrl.reSend));
+
+router.get("/verify/:verifyToken", controllerWrapper(ctrl.verify));
+
+
 router.post("/login", validation(joiSchema), controllerWrapper(ctrl.login));
 // router.post("/signin")
 

@@ -1,5 +1,6 @@
 const { Conflict } = require("http-errors");
-// const bcrypt = require("bcryptjs");
+const { nanoid } = require('nanoid')
+const { sendEmail } = require('../../utils')
 
 const { User } = require("../../models");
 // Создавай ссылку на аватарку пользователя с помощью gravatar
@@ -11,34 +12,30 @@ const register = async (req, res) => {
   const user = await User.findOne({ email }); //findOne возвращает объект или null
   if (user) {
     throw new Conflict("Already register");
-    // res.status(409).json({
-    //     status: "error",
-    //     code: 409,
-    //     message: "Already register"
-    // });
-    // return;
   }
-  
-  const avatar = gravatar.url(
-    email,
-    {
-      s: "250",
-      d: "robohash",
-    },
-    true
-  );
-  //2вар
-  const newUser = new User({ email }); //создаем объект
+  const verifyToken = nanoid();
+  const newUser = new User({ email, verifyToken }); //создаем объект
   // newUser = {email}
   newUser.setPassword(password); //password и захеширован виде
-  newUser.setAvatar(avatar);
-  // newUser = {email, password}
+    // newUser = {email, password}
+   // Avatar в базе данных сгенерирован
+   const avatar = gravatar.url(email);
+  newUser.setAvatar(avatar); 
+
   await newUser.save(); //сохраняем в базу
-  //1вар
-  // const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));//хешируем
-  // const newUser = {email, password: hashPassword};
-  // await User.create(newUser);
+  
+  const verifyEmail = {
+    to: email,
+    subject: "Verify your email to finish registration",
+    html: `<a href="http://localhost:8080/api/auth/verify/${verifyToken}" target="_blank">Confirm email<a>`,
+  };
+  await sendEmail(verifyEmail);
+  
   res.status(201).json({
+     user: {
+      email: newUser.email,
+      subscription: newUser.subscription
+    },
     status: "success",
     code: 201,
     message: "Success register",

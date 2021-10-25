@@ -4,6 +4,9 @@ const logout = require("./logout");
 const current = require("./current");
 const avatars = require("./avatars");
 const favoriteContacts = require('./favoriteContacts')
+const verify = require("./verify");
+const reVerify = require("./reVerify");
+
 
 module.exports = {
   register,
@@ -12,4 +15,6 @@ module.exports = {
   current,
   avatars,
   favoriteContacts,
+  verify,
+  reVerify,
 };

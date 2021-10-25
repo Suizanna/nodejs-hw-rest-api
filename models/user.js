@@ -28,6 +28,14 @@ const userSchema = Schema(
     avatarURL: {
       type: String,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
   },
   { versionKey: false, timestamps: true }// versionKey:-чтобы не было версий
 );
@@ -44,7 +52,7 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-// Avatar
+// Avatar в базе
 userSchema.methods.setAvatar = function (avatar) {
   this.avatarURL = avatar;
 };
@@ -65,6 +73,9 @@ userSchema.methods.createToken = function () {
 const joiSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().min(6).required(),
+  subscription: Joi.string(),
+  owner: Joi.string().min(1),
+  avatarURL: Joi.string(),
 });
 
 // Model
